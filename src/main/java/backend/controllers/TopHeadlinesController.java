@@ -19,6 +19,7 @@ public class TopHeadlinesController {
 
     List<TopHeadline> headlineList = new ArrayList<>();
 
+
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("{country}/{category}")
     public List<TopHeadline> getAllTopHeadlines(@PathVariable final String country,
@@ -37,11 +38,14 @@ public class TopHeadlinesController {
                                     article.getAuthor(),
                                     article.getTitle(),
                                     article.getDescription(),
+
                                     LocalDate.parse(article.getPublishedAt(),
                                             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
                                     article.getSource().getName(),
                                     article.getUrl(),
                                     article.getUrlToImage()));
+
+                            ));
                         });
                     }
 
@@ -76,6 +80,8 @@ public class TopHeadlinesController {
                                     article.getSource().getName(),
                                     article.getUrl(),
                                     article.getUrlToImage()));
+
+                            ));
                         });
                     }
 
@@ -83,6 +89,7 @@ public class TopHeadlinesController {
                     public void onFailure(Throwable throwable) {
                         System.out.println(throwable.getMessage());
                     }
+
                 });
         return TopHeadlinesResponse
                 .builder()

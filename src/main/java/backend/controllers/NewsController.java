@@ -14,11 +14,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/news/")
-
 public class NewsController {
     NewsApiClient newsApiClient = new NewsApiClient("3eefdfedac914be2bd3e50a80170b994");
 
     List<Article> articleList = new ArrayList<>();
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("{q}")
@@ -42,6 +42,10 @@ public class NewsController {
                                     article.getSource().getName(),
                                     article.getUrl(),
                                     article.getUrlToImage()));
+
+
+                            ));
+
                         });
                     }
 
@@ -49,10 +53,10 @@ public class NewsController {
                     public void onFailure(Throwable throwable) {
                         System.out.println(throwable.getMessage());
                     }
+
                 });
         return articleList;
     }
-
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("{q}/{id}")
     public NewsResponse getAllNewsById(
@@ -76,6 +80,7 @@ public class NewsController {
                                     article.getSource().getName(),
                                     article.getUrl(),
                                     article.getUrlToImage()));
+                            ));
                         });
                     }
 
@@ -84,6 +89,7 @@ public class NewsController {
                         System.out.println(throwable.getMessage());
                     }
                 });
+
         return NewsResponse
                 .builder()
                 .q(q)
