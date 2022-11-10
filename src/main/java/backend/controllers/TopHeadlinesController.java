@@ -19,9 +19,10 @@ public class TopHeadlinesController {
 
     List<TopHeadline> headlineList = new ArrayList<>();
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("{country}/{category}")
-    public List<TopHeadline> getAllTopHeadlines(@PathVariable final String country, @PathVariable final String category) {
+    public List<TopHeadline> getAllTopHeadlines(@PathVariable final String country,
+            @PathVariable final String category) {
         newsApiClient.getTopHeadlines(
                 new TopHeadlinesRequest.Builder()
                         .country(country)
@@ -36,11 +37,11 @@ public class TopHeadlinesController {
                                     article.getAuthor(),
                                     article.getTitle(),
                                     article.getDescription(),
-                                    LocalDate.parse(article.getPublishedAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
+                                    LocalDate.parse(article.getPublishedAt(),
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
                                     article.getSource().getName(),
                                     article.getUrl(),
-                                    article.getUrlToImage()
-                            ));
+                                    article.getUrlToImage()));
                         });
                     }
 
@@ -48,11 +49,11 @@ public class TopHeadlinesController {
                     public void onFailure(Throwable throwable) {
                         System.out.println(throwable.getMessage());
                     }
-                }
-        );
+                });
         return headlineList;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("{country}/{category}/{id}")
     public TopHeadlinesResponse getTopHeadlinesById(
             @PathVariable final String country, @PathVariable final String category, @PathVariable final int id) {
@@ -70,11 +71,11 @@ public class TopHeadlinesController {
                                     article.getAuthor(),
                                     article.getTitle(),
                                     article.getDescription(),
-                                    LocalDate.parse(article.getPublishedAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
+                                    LocalDate.parse(article.getPublishedAt(),
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
                                     article.getSource().getName(),
                                     article.getUrl(),
-                                    article.getUrlToImage()
-                            ));
+                                    article.getUrlToImage()));
                         });
                     }
 
@@ -82,8 +83,7 @@ public class TopHeadlinesController {
                     public void onFailure(Throwable throwable) {
                         System.out.println(throwable.getMessage());
                     }
-                }
-        );
+                });
         return TopHeadlinesResponse
                 .builder()
                 .country(country)
