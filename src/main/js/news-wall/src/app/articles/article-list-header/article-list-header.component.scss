@@ -1,0 +1,20 @@
+@import './../../../styles/typography';
+@import './../../../styles/palette';
+
+$header-left-margin-desktop: 30px;
+$header-vertical-margin: 5px;
+
+:host {
+  display: flex;
+  background-color: $vivid-blue;
+}
+
+p {
+  margin-top: $header-vertical-margin;
+  margin-bottom: $header-vertical-margin;
+  margin-left: $header-left-margin-desktop;
+  font-size: $big-size;
+  font-weight: $bold-weight;
+  color: $white;
+  text-shadow: 1px 1px 3px $dark-grey;
+}
