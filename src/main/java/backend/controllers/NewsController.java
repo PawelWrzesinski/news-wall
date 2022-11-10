@@ -19,6 +19,8 @@ public class NewsController {
 
     List<Article> articleList = new ArrayList<>();
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("{q}")
     public List<Article> getAllNews(@PathVariable final String q) {
         newsApiClient.getEverything(
@@ -35,11 +37,15 @@ public class NewsController {
                                     article.getAuthor(),
                                     article.getTitle(),
                                     article.getDescription(),
-                                    LocalDate.parse(article.getPublishedAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
+                                    LocalDate.parse(article.getPublishedAt(),
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
                                     article.getSource().getName(),
                                     article.getUrl(),
-                                    article.getUrlToImage()
+                                    article.getUrlToImage()));
+
+
                             ));
+
                         });
                     }
 
@@ -47,11 +53,11 @@ public class NewsController {
                     public void onFailure(Throwable throwable) {
                         System.out.println(throwable.getMessage());
                     }
-                }
-        );
+
+                });
         return articleList;
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("{q}/{id}")
     public NewsResponse getAllNewsById(
             @PathVariable final String q, @PathVariable final int id) {
@@ -69,10 +75,11 @@ public class NewsController {
                                     article.getAuthor(),
                                     article.getTitle(),
                                     article.getDescription(),
-                                    LocalDate.parse(article.getPublishedAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
+                                    LocalDate.parse(article.getPublishedAt(),
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")),
                                     article.getSource().getName(),
                                     article.getUrl(),
-                                    article.getUrlToImage()
+                                    article.getUrlToImage()));
                             ));
                         });
                     }
@@ -81,8 +88,8 @@ public class NewsController {
                     public void onFailure(Throwable throwable) {
                         System.out.println(throwable.getMessage());
                     }
-                }
-        );
+                });
+
         return NewsResponse
                 .builder()
                 .q(q)
